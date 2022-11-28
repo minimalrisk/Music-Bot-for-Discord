@@ -33,7 +33,7 @@ let commands = []
 
 const slashFiles = fs.readdirSync("./slash").filter(file => file.endsWith(".js"))
 for (const file of slashFiles){
-    const slashcmd = require('./slash/${file}')
+    const slashcmd = require(`./slash/${file}`)
     client.slashcommands.set(slashcmd.data.name, slashcmd)
     if (LOAD_SLASH) commands.push(slashcmd.data.toJSON())
 }
@@ -55,7 +55,7 @@ if (LOAD_SLASH) {
 }
 else {
     client.on("ready", () => {
-        console.log('Logged in as ${client.user.tag}')
+        console.log(`Logged in as ${client.user.tag}`)
     })
     client.on("interactionCreate", (interaction) => {
         async function handleCommand() {

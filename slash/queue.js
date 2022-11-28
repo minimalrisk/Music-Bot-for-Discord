@@ -17,10 +17,10 @@ module.exports = {
       const page = (interaction.optionsgetNumber("page") || 1) - 1
       
       if (page + 1 > totalPages)
-      return await interaction.editReply('Invalid Page. There are only a total of ${totalPages} pages of songs')
+      return await interaction.editReply(`Invalid Page. There are only a total of ${totalPages} pages of songs`)
 
       const queueString = queue.tracks.slice(page * 10, page * 10 + 10).map((song, i) => {
-        return '**${page * 10 + i + 1}.** \'[${song.duration}]\' ${song.title} -- <@${song.requestedBy.id}>'
+        return `**${page * 10 + i + 1}.** \`[${song.duration}]\` ${song.title} -- <@${song.requestedBy.id}>`
       }).join("\n")
 
       const currentSong = queue.current
@@ -28,12 +28,12 @@ module.exports = {
       await interaction.editReply({
         embeds: [
             new EmbedBuilder()
-            .setDescription('**Currently Playing**\n' + 
-            (currentSong ? '\'[${currentSong.duration}]\' ${currentSong.title} -- <@${currentSong.requestedBy.id}>' : "None") +
-            '\n\n**Queue**\n${queueString}'
+            .setDescription(`**Currently Playing**\n` + 
+            (currentSong ? `\`[${currentSong.duration}]\` ${currentSong.title} -- <@${currentSong.requestedBy.id}>` : "None") +
+            `\n\n**Queue**\n${queueString}`
             )
             .setFooter({
-                text: 'Page ${page + 1} of ${totalPages}'
+                text: `Page ${page + 1} of ${totalPages}`
             })
            .setThumbnail(currentSong.setThumbnail) 
         ]
